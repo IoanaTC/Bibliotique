@@ -1,39 +1,39 @@
-package models;
+package model;
 
 import java.util.Date;
 
 public abstract class Book {
-    private String name;
+    private String title;
     private Author author;
     private String description;
     private Date publishedon;
     private boolean available;
 
     public Book() {
-        name = "Unknown name";
+        title = "Unknown title";
         author = null;
         description = null;
     }
-    public Book(String name, Author author, Date publishedon) {
-        this.name = name;
+    public Book(String title, Author author, Date publishedon) {
+        this.title = title;
         this.author = author;
         this.publishedon = publishedon;
         description = "No description available for this book";
     }
 
-    public Book(String name, Author author, String description, Date publishedon) {
-        this.name = name;
+    public Book(String title, Author author, String description, Date publishedon) {
+        this.title = title;
         this.author = author;
         this.description = description;
         this.publishedon = publishedon;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Author getAuthor() {

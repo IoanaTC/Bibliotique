@@ -1,10 +1,9 @@
-package models;
+package model;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Shelf {
+public class Shelf extends User{
+    private static Shelf instance;
     private ArrayList<Book> favourites;
     private ArrayList<Book> wishlist;
     private ArrayList<Book> currentlyReading;
@@ -13,9 +12,10 @@ public class Shelf {
         wishlist = new ArrayList<Book>();
         currentlyReading = new ArrayList<Book>();
     }
-    public static Shelf buildShelf(){
-        Shelf shelf = new Shelf();
-        return shelf;
+    protected static Shelf buildShelf(){
+        if(instance == null)
+            instance =  new Shelf();
+        return instance;
     }
 
     public ArrayList<Book> getFavourites() {

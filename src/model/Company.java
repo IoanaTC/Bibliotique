@@ -1,25 +1,20 @@
-package models;
+package model;
 
 import java.util.HashSet;
 
 public class Company {
     private String name;
     private String domain;
-    private HashSet<User> employees;
 
     public Company() {
         name = "Name unknown";
         domain = "Domain unknown";
     }
 
-    public Company(String name, String domain, HashSet<User> employees) {
+    public Company(String name, String domain) {
         this.name = name;
         this.domain = domain;
     }
-    {
-        employees = new HashSet<User>();
-    }
-
     public String getName() {
         return name;
     }
@@ -35,12 +30,4 @@ public class Company {
     public void setDomain(String domain) {
         this.domain = domain;
     }
-
-    public HashSet<User> getEmployees() {
-        return employees;
     }
-
-    public void setEmployees(HashSet<User> employees) {
-        this.employees = employees;
-    }
-}

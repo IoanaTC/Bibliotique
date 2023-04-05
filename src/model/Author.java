@@ -1,4 +1,4 @@
-package models;
+package model;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ public class Author {
         information = "No information found about this author";
     }
 
-    public Author(String name, int age) {
+    public Author(String name) {
         this.name = name;
         this.age = age;
         information = "No information found about this author";
