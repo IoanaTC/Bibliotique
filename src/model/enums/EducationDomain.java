@@ -1,11 +1,11 @@
 package model.enums;
 
 public enum EducationDomain {
-    Biography,
-    Business,
+    BIOGRAPHY,
+    BUSINESS,
     IT,
-    Cooking,
-    Gardening,
-    Sport,
-    TrueCrime
+    COOKING,
+    GARDENING,
+    SPORT,
+    TRUE_CRIME
 }

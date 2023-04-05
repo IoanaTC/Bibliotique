@@ -22,9 +22,9 @@ public class Fiction extends Book{
         this.characters = characters;
         this.allegory = allegory;
     }
-    public Fiction(String title, Author author, Date publishedon,
+    public Fiction(String title, Author author, String description, Date publishedon,
                    FictionDomain domain) {
-        super(title, author, publishedon);
+        super(title, author, description, publishedon);
         this.domain = domain;
         this.allegory = allegory;
         this.characters = new HashSet<String>();

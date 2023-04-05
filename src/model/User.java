@@ -15,14 +15,6 @@ public class User {
     private ArrayList<BookClub> bookClubs;
     private Map<String, Review> reviews;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "firstname='" + firstname + '\'' +
-                ", surname='" + surname + '\'' +
-                ", age=" + age +
-                '}';
-    }
     public Shelf getShelf(){
         if(shelf == null){
             shelf = Shelf.buildShelf();
@@ -46,6 +38,11 @@ public class User {
         this.shelf = shelf;
         this.bookClubs = bookClubs;
         this.reviews = reviews;
+    }
+    public User(String firstname, String surname, int age) {
+        this.firstname = firstname;
+        this.surname = surname;
+        this.age = age;
     }
 
     public String getFirstname() {

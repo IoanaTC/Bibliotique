@@ -22,10 +22,10 @@ public class Education extends Book{
     }
 
     public Education(String title, Author author, Date publishedon,
-                     EducationDomain domain) {
+                     EducationDomain domain, HashSet<String> toolsincluded) {
         super(title, author, publishedon);
         this.domain = domain;
-        this.toolsincluded = new HashSet<String>();
+        this.toolsincluded = toolsincluded;
     }
 
     public EducationDomain getDomain() {
