@@ -6,43 +6,42 @@ import java.util.Date;
 import java.util.HashSet;
 
 public class Fiction extends Book{
-    private FictionDomain domain;
-    private HashSet<String> characters;
+    private String domain;
+    private String characters;
     private String allegory;
 
     public Fiction() {
+        super();
         this.domain = null;
         this.allegory = "No allegory written for this book";
-        this.characters = new HashSet<String>();
+        this.characters = "None";
     }
-    public Fiction(String title, Author author, String description, Date publishedon,
-                   FictionDomain domain, HashSet<String> characters, String allegory) {
-        super(title, author, description, publishedon);
+    public Fiction(String title, String author, String description, Date published,
+                   String domain, String characters, String allegory) {
+        super(title, author, description, published);
         this.domain = domain;
         this.characters = characters;
         this.allegory = allegory;
     }
-    public Fiction(String title, Author author, String description, Date publishedon,
-                   FictionDomain domain) {
-        super(title, author, description, publishedon);
+    public Fiction(String title, String author, String description, Date published,
+                   String domain) {
+        super(title, author, description, published);
         this.domain = domain;
-        this.allegory = allegory;
-        this.characters = new HashSet<String>();
     }
 
-    public FictionDomain getDomain() {
+    public String getDomain() {
         return domain;
     }
 
-    public void setDomain(FictionDomain domain) {
+    public void setDomain(String domain) {
         this.domain = domain;
     }
 
-    public HashSet<String> getCharacters() {
+    public String getCharacters() {
         return characters;
     }
 
-    public void setCharacters(HashSet<String> characters) {
+    public void setCharacters(String characters) {
         this.characters = characters;
     }
 

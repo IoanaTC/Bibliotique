@@ -1,7 +1,5 @@
 package model;
 
-import java.util.HashSet;
-
 public class Company {
     private String name;
     private String domain;

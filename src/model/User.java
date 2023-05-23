@@ -1,19 +1,14 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-public class User {
+public class User{
     private String firstname;
     private String surname;
     private int age;
-    private Company company;
+    private Company company; //aggregation
+    private Club club;
 
     //there is a single shelf per user -> singleton
     private Shelf shelf;
-    private ArrayList<BookClub> bookClubs;
-    private Map<String, Review> reviews;
 
     public Shelf getShelf(){
         if(shelf == null){
@@ -26,18 +21,14 @@ public class User {
         surname = "User";
         age = -1;
         company = null;
-        bookClubs = new ArrayList<>();
-        reviews = new HashMap<String, Review>();
     }
     public User(String firstname, String surname, int age, Company company,
-                Shelf shelf, ArrayList<BookClub> bookClubs, Map<String, Review> reviews) {
+                Shelf shelf, Club club) {
         this.firstname = firstname;
         this.surname = surname;
         this.age = age;
         this.company = company;
         this.shelf = shelf;
-        this.bookClubs = bookClubs;
-        this.reviews = reviews;
     }
     public User(String firstname, String surname, int age) {
         this.firstname = firstname;
@@ -72,23 +63,7 @@ public class User {
     public Company getCompany() {
         return company;
     }
-    public void setShelf(Shelf shelf) {
+    public void copyConstructorShelf(Shelf shelf) {
         this.shelf = shelf;
-    }
-
-    public ArrayList<BookClub> getBookClubs() {
-        return bookClubs;
-    }
-
-    public void setBookClubs(ArrayList<BookClub> bookClubs) {
-        this.bookClubs = bookClubs;
-    }
-
-    public Map<String, Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(Map<String, Review> reviews) {
-        this.reviews = reviews;
     }
 }

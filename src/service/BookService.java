@@ -15,7 +15,7 @@ public class BookService {
         System.out.println("These are the available books for choosing:");
         int index = 1;
         for(Book book : books){
-            System.out.printf("%d. %s - %s\n", index++, book.getTitle(), book.getAuthor().getName());
+            System.out.printf("%d. %s - %s\n", index++, book.getTitle(), book.getAuthor());
         }
     }
 }

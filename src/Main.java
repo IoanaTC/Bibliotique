@@ -1,16 +1,24 @@
-import model.*;
-import service.BookService;
 import service.Seed;
-import service.Service;
+import service.Menu;
 import service.UserService;
+
+import java.sql.SQLException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         System.out.println("Hello world!");
         Seed.getSeed();
 
-        //Service.userManipulation();
-        Service.shelfManipulation(UserService.getUsers().get(8));
+        Menu.userManipulation();
+//        Menu.shelfManipulation(UserService.getUsers().get(8));
         // afisare book frumos
-        // verificare index corect
+        // manipulare book club
+        // reviewuri
+        // vizualizare carti, autor
+        // companie
+//        User user = new User();
+//        System.out.println(user.getShelf());
+//        System.out.println(user.getShelf());
+
     }
 }

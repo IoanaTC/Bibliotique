@@ -4,7 +4,7 @@ import model.User;
 
 import java.util.Scanner;
 
-public class Service {
+public class Menu {
     // show all users, add new user, delete user, show user
     public static void userManipulation(){
         Scanner scanner = new Scanner(System.in);
@@ -12,6 +12,7 @@ public class Service {
 
         while (!exit) {
             System.out.println("\nWelcome to the User Management System!");
+            showBook();
             System.out.println("Please select an option:");
             System.out.println("1. Show all users");
             System.out.println("2. Register a new user");
@@ -39,12 +40,22 @@ public class Service {
                     break;
                 case 4:
                     // Show a user's details
-                    System.out.println("Showing the first user's details...");
-                    UserService.showUser(UserService.getUsers().get(0));
+                    // System.out.println("Showing the first user's details...");
+
+                    UserService.showAllUsers();
+                    System.out.print("Pick the number of the user you want to find more about: ");
+
+                    int index = scanner.nextInt();
+                    if(index > UserService.getUsers().size()){
+                        System.out.println("Index out of bounds");
+                        break;
+                    }
+                    UserService.showUser(UserService.getUsers().get(index - 1));
                     break;
                 case 0:
                     // Exit the program
-                    System.out.println("Exiting the program...");
+                    System.out.println("Bye");
+                    showMagarus();
                     exit = true;
                     break;
                 default:
@@ -59,6 +70,7 @@ public class Service {
 
         while (!exit) {
             System.out.println("\nWelcome to the User's shelf Management System!");
+            showBook();
             System.out.println("Select an option:");
             System.out.println("1. Add book to currently reading list");
             System.out.println("2. Delete book from currently reading list");
@@ -102,10 +114,41 @@ public class Service {
                     break;
                 case 0:
                     exit = true;
+                    System.out.println("Bye");
+                    showMagarus();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
         }
+    }
+    public static void showBook(){
+        System.out.println("     __...--~~~~~-._   _.-~~~~~--...__");
+        System.out.println("    //               `V'             \\\\");
+        System.out.println("   //                 |                \\\\");
+        System.out.println("  //__...--~~~~~~-._  |  _.-~~~~~~--...__\\\\");
+        System.out.println(" //__.....----~~~~._\\\\|//_.~~~~----...__..\\\\");
+        System.out.println("// =================\\\\|//==================\\\\");
+        System.out.println("                    `---`                     ");
+    }
+    public static void showDog(){
+        System.out.println(" ,-.___,-.");
+        System.out.println("\\_/_ _\\_/");
+        System.out.println("  )O_O(");
+        System.out.println(" { (_) }");
+        System.out.println("  `-^-'  ");
+    }
+    public static void showMagarus(){
+        System.out.println(" __________");
+        System.out.println("/ See ya! \\");
+        System.out.println("\\__________/");
+        System.out.println("        \\");
+        System.out.println("         \\");
+        System.out.println("    ^__^");
+        System.out.println("    (oo)\\_______");
+        System.out.println("    (__)\\       )\\/\\");
+        System.out.println("        ||------w |");
+        System.out.println("        ||       ||");
+
     }
 }

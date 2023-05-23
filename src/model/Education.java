@@ -6,41 +6,43 @@ import java.util.Date;
 import java.util.HashSet;
 
 public class Education extends Book{
-    private EducationDomain domain;
-    private HashSet<String> toolsincluded;
+    private String domain;
+    private String tools;
 
     public Education() {
+        super();
         this.domain = null;
-        this.toolsincluded = new HashSet<String>();
+        this.tools = "None";
     }
 
-    public Education(String title, Author author, String description, Date publishedon,
-                     EducationDomain domain, HashSet<String> toolsincluded) {
-        super(title, author, description, publishedon);
+    public Education(String title, String author, String description, Date published,
+                     String domain, String tools) {
+        super(title, author, description, published);
         this.domain = domain;
-        this.toolsincluded = toolsincluded;
+
+        this.tools = tools;
     }
 
-    public Education(String title, Author author, Date publishedon,
-                     EducationDomain domain, HashSet<String> toolsincluded) {
-        super(title, author, publishedon);
+    public Education(String title, String author, Date published,
+                     String domain, String tools) {
+        super(title, author, published);
         this.domain = domain;
-        this.toolsincluded = toolsincluded;
+        this.tools = tools;
     }
 
-    public EducationDomain getDomain() {
+    public String getDomain() {
         return domain;
     }
 
-    public void setDomain(EducationDomain domain) {
+    public void setDomain(String domain) {
         this.domain = domain;
     }
 
-    public HashSet<String> getToolsincluded() {
-        return toolsincluded;
+    public String getTools() {
+        return tools;
     }
 
-    public void setToolsincluded(HashSet<String> toolsincluded) {
-        this.toolsincluded = toolsincluded;
+    public void setTools(String tools) {
+        this.tools = tools;
     }
 }

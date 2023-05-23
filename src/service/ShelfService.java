@@ -10,11 +10,11 @@ import java.util.regex.Pattern;
 
 public class ShelfService {
     public static void showCurrentlyReading(Shelf shelf){
-        ArrayList<Book> currentlyReading = shelf.getCurrentlyReading();
+        ArrayList<Book> currentlyReading = shelf.getReading();
         if(!currentlyReading.isEmpty()){
             int index = 1;
             for(Book book : currentlyReading){
-                System.out.printf("%d. %s, %s\n", index++, book.getTitle(), book.getAuthor().getName());
+                System.out.printf("%d. %s, %s\n", index++, book.getTitle(), book.getAuthor());
             }
         }
         else System.out.println("Currently reading list: empty\n");
@@ -30,16 +30,20 @@ public class ShelfService {
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(collection);
 
-        ArrayList<Book> currentlyReading = shelf.getCurrentlyReading();
+        ArrayList<Book> currentlyReading = shelf.getReading();
         ArrayList<Book> books = BookService.getBooks();
         while(matcher.find()){
             int index = Integer.parseInt(matcher.group());
 
+            if(index > books.size()){
+                System.out.println("Index out of bounds");
+                continue;
+            }
             if(!currentlyReading.contains(books.get(index - 1)))
                 currentlyReading.add(books.get(index - 1));
         }
     }
-    public static void deleteCurentlyReading(Shelf shelf){
+    public static void deleteCurrentlyReading(Shelf shelf){
         Scanner scanner = new Scanner(System.in);
 
         showCurrentlyReading(shelf);
@@ -50,9 +54,14 @@ public class ShelfService {
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(collection);
 
-        ArrayList<Book> currentlyReading = shelf.getCurrentlyReading();
+        ArrayList<Book> currentlyReading = shelf.getReading();
         while(matcher.find()){
             int index = Integer.parseInt(matcher.group());
+
+            if(index >= currentlyReading.size()){
+                System.out.println("Index out of bounds");
+                continue;
+            }
             currentlyReading.remove(index - 1);
         }
     }
@@ -61,7 +70,7 @@ public class ShelfService {
         if(!Favourites.isEmpty()){
             int index = 1;
             for(Book book : Favourites){
-                System.out.printf("%d. %s, %s\n", index++, book.getTitle(), book.getAuthor().getName());
+                System.out.printf("%d. %s, %s\n", index++, book.getTitle(), book.getAuthor());
             }
         }
         else System.out.println("Favourites list: empty");
@@ -82,6 +91,10 @@ public class ShelfService {
         while(matcher.find()){
             int index = Integer.parseInt(matcher.group());
 
+            if(index > books.size()){
+                System.out.println("Index out of bounds");
+                continue;
+            }
             if(!Favourites.contains(books.get(index - 1)))
                 Favourites.add(books.get(index - 1));
         }
@@ -100,6 +113,11 @@ public class ShelfService {
         ArrayList<Book> Favourites = shelf.getFavourites();
         while(matcher.find()){
             int index = Integer.parseInt(matcher.group());
+
+            if(index >= Favourites.size()){
+                System.out.println("Index out of bounds");
+                continue;
+            }
             Favourites.remove(index - 1);
         }
     }
@@ -108,7 +126,7 @@ public class ShelfService {
         if(!Wishlist.isEmpty()){
             int index = 1;
             for(Book book : Wishlist){
-                System.out.printf("%d. %s, %s\n", index++, book.getTitle(), book.getAuthor().getName());
+                System.out.printf("%d. %s, %s\n", index++, book.getTitle(), book.getAuthor());
             }
         }
         else System.out.println("Wishlist: empty");
@@ -129,6 +147,10 @@ public class ShelfService {
         while(matcher.find()){
             int index = Integer.parseInt(matcher.group());
 
+            if(index > books.size()){
+                System.out.println("Index out of bounds");
+                continue;
+            }
             if(!Wishlist.contains(books.get(index - 1)))
                 Wishlist.add(books.get(index - 1));
         }
@@ -147,6 +169,11 @@ public class ShelfService {
         ArrayList<Book> Wishlist = shelf.getWishlist();
         while(matcher.find()){
             int index = Integer.parseInt(matcher.group());
+
+            if(index >= Wishlist.size()){
+                System.out.println("Index out of bounds");
+                continue;
+            }
             Wishlist.remove(index - 1);
         }
     }
