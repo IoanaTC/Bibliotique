@@ -1,17 +1,16 @@
 package service;
 import java.sql.*;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import config.Database;
+import config.DatabaseSeed;
 import config.DatabaseConfiguration;
 
 public final class Seed {
     private static Seed seed;
 
     private void createDatabase() throws SQLException {
-        Database database = Database.getDatabaseSchema();
+        DatabaseSeed database = DatabaseSeed.getDatabaseSchema();
         Connection connection = DatabaseConfiguration.getDatabaseConnection();
 
         LinkedHashMap<String, String> structure = database.getStructure();
@@ -33,6 +32,12 @@ public final class Seed {
                 System.out.printf("Table %s already exists%n", key);
             }
         }
+        DatabaseSeed.seedCompanies();
+        DatabaseSeed.seedClubs();
+        DatabaseSeed.seedFiction();
+        DatabaseSeed.seedEducation();
+        DatabaseSeed.seedGraphicNovel();
+        DatabaseSeed.seedUsers();
         // Close the connection
 //        DatabaseConfiguration.closeDatabaseConnection();
     }

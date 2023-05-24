@@ -11,11 +11,7 @@ public class Main {
 
         Menu.userManipulation();
 //        Menu.shelfManipulation(UserService.getUsers().get(8));
-        // afisare book frumos
-        // manipulare book club
-        // reviewuri
-        // vizualizare carti, autor
-        // companie
+
 //        User user = new User();
 //        System.out.println(user.getShelf());
 //        System.out.println(user.getShelf());

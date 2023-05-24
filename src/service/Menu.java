@@ -36,21 +36,25 @@ public class Menu {
                 case 3:
                     // Delete a user
                     System.out.println("Deleting a user...");
-                    UserService.deleteUser();
+//                    UserService.deleteUser();
                     break;
                 case 4:
                     // Show a user's details
-                    // System.out.println("Showing the first user's details...");
+                    System.out.println("Showing the chosen user's details...");
 
                     UserService.showAllUsers();
                     System.out.print("Pick the number of the user you want to find more about: ");
+                    boolean answered = false;
 
-                    int index = scanner.nextInt();
-                    if(index > UserService.getUsers().size()){
-                        System.out.println("Index out of bounds");
-                        break;
+                    while(!answered) {
+                        int indexFound = scanner.nextInt() - 1;
+                        try {
+                            UserService.showUserDetailed(UserService.getUsers().get(indexFound));
+                            answered = true;
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println("Index out of bounds, please insert a correct number : ");
+                        }
                     }
-                    UserService.showUser(UserService.getUsers().get(index - 1));
                     break;
                 case 0:
                     // Exit the program

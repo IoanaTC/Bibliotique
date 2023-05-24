@@ -10,6 +10,14 @@ public class User{
     //there is a single shelf per user -> singleton
     private Shelf shelf;
 
+    public User(String firstname, String surname, int age, Company company, Club club) {
+        this.firstname = firstname;
+        this.surname = surname;
+        this.age = age;
+        this.company = company;
+        this.club = club;
+    }
+
     public Shelf getShelf(){
         if(shelf == null){
             shelf = Shelf.buildShelf();
@@ -63,6 +71,13 @@ public class User{
     public Company getCompany() {
         return company;
     }
+
+    public void setCompany(Company company) { this.company = company; }
+
+    public Club getClub() { return club; }
+
+    public void setClub(Club club) { this.club = club; }
+
     public void copyConstructorShelf(Shelf shelf) {
         this.shelf = shelf;
     }
