@@ -47,7 +47,7 @@ public class UserService{
         Scanner scanner = new Scanner(System.in);
 
         // reading the user's full-name and separating it into firstname and surname
-        System.out.print("What is your name: ");
+        System.out.print("Name: ");
 
         String full_name = scanner.nextLine();
         Pattern pattern = Pattern.compile("(\\p{L}+) (\\p{L}+)");
@@ -60,12 +60,12 @@ public class UserService{
         }
         else{
             // redirect user to re-enter its name
-            System.out.println("Please insert your name in this format: Firstname Surname");
+            System.out.println("Please insert the name in this format: Firstname Surname : ");
             newUser = registerUser();
             return newUser;
         }
         // setting users age
-        System.out.print("How old are you: ");
+        System.out.print("Age: ");
         newUser.setAge(scanner.nextInt());
 
         System.out.print("Are you currently employed: 1 (true) or 0 (false) : ");
@@ -76,7 +76,7 @@ public class UserService{
                 ArrayList<Company> companies = CompanyService.getCompanies();
                 CompanyService.showCompanies(companies);
 
-                System.out.print("Find the company amongst the elements of this list, and insert its index : ");
+                System.out.print("\nFind the company amongst the elements of this list, and insert its index : ");
                 boolean indexFound = false;
 
                 while(!indexFound){
@@ -86,7 +86,7 @@ public class UserService{
                         indexFound = true;
                     }
                     catch(IndexOutOfBoundsException e){
-                        System.out.println("Index out of bounds, please insert a correct number:");
+                        System.out.println("Index out of bounds, please insert a correct number : ");
                     }
                 }
                 answered = true;
@@ -106,7 +106,7 @@ public class UserService{
                 ArrayList<Club> clubs = ClubService.getBookClubs();
                 ClubService.showBookClubs(clubs);
 
-                System.out.print("Find the club amongst the elements of this list, and insert its index : ");
+                System.out.print("\nFind the club amongst the elements of this list, and insert its index : ");
                 boolean indexFound = false;
 
                 while(!indexFound){
@@ -116,7 +116,7 @@ public class UserService{
                         indexFound = true;
                     }
                     catch(IndexOutOfBoundsException e){
-                        System.out.println("Index out of bounds, please insert a correct number");
+                        System.out.println("Index out of bounds, please insert a correct number : ");
                     }
                 }
                 answered = true;
@@ -125,40 +125,16 @@ public class UserService{
                 newUser.setClub(null);
                 answered = true;
             }
-            else System.out.println("Invalid answer, please insert 0 (false) or 1 (true)");
+            else System.out.println("Invalid answer, please insert 0 (false) or 1 (true) : ");
         }
         dbCreate(newUser);
         System.out.printf("The user: %s %s has been created successfully", newUser.getFirstname(), newUser.getFirstname());
         return newUser;
     }
-//    public static void deleteUser(){
-//        System.out.println("Deleting user...");
-//        Scanner scanner = new Scanner(System.in);
-//
-//        showAllUsers();
-//        System.out.print("Pick the number of the user you want to delete: ");
-//
-//        String collection = scanner.nextLine();
-//        Pattern pattern = Pattern.compile("\\d+");
-//        Matcher matcher = pattern.matcher(collection);
-//
-//        while(matcher.find()){
-//            int index = Integer.parseInt(matcher.group());
-//
-//            try {
-//                users.remove(index - 1);
-//            }
-//            catch(ArrayIndexOutOfBoundsException exception){
-//                System.out.println("Index out of bounds");
-//            }
-//        }
-//        System.out.println("Done");
-//    }
-//
     public static void showAllUsers(){
         ArrayList<User> users = getUsers();
 
-        System.out.println("The currently registered users are:");
+        System.out.println("The currently registered users are:\n");
         int index = 1;
 
         for (User user : users){
@@ -166,7 +142,6 @@ public class UserService{
             showUser(user);
         }
     }
-
     // show functionalities for current user
     public static void showUser(User user) {
         System.out.printf("Nume: %s %s; Varsta: %d ani\n",
@@ -196,6 +171,176 @@ public class UserService{
     public static void showCurrentlyReading(User user){
         System.out.printf("%s is currently reading:\n", user.getFirstname());
         ShelfService.showCurrentlyReading(user.getShelf());
+    }
+    public static void updateUser(){
+        User user = null, newUser = null;
+
+        Scanner scanner = new Scanner(System.in);
+
+        showAllUsers();
+        ArrayList<User> users = getUsers();
+        System.out.print("\nPick the number of the user you want to update: ");
+
+        boolean indexFound = false, answered;
+
+        while(!indexFound){
+            int user_id = scanner.nextInt() - 1;
+            try{
+                user = users.get(user_id);
+                newUser = new User(user.getFirstname(), user.getSurname(), user.getAge(), user.getCompany(),
+                        user.getClub());
+
+                System.out.println("This is the current Firstname: " + user.getFirstname());
+
+                System.out.print("Do you want to change it?: 1 (true) or 0 (false) : ");
+                answered = false;
+                while(!answered){
+                    int answer = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (answer == 1) {
+                        System.out.print("Firstname : ");
+                        String name = scanner.nextLine();
+
+                        newUser.setFirstname(name);
+                        answered = true;
+                    }
+                    else if(answer == 0){
+                        answered = true;
+                    }
+                    else System.out.println("Invalid answer, please insert 0 (false) or 1 (true) : ");
+                }
+                System.out.println("This is the current Lastname: " + user.getSurname());
+
+                System.out.print("Do you want to change it?: 1 (true) or 0 (false) : ");
+                answered = false;
+                while(!answered){
+                    int answer = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (answer == 1) {
+                        System.out.print("Lastname : ");
+                        String name = scanner.nextLine();
+
+                        newUser.setSurname(name);
+                        answered = true;
+                    }
+                    else if(answer == 0){
+                        answered = true;
+                    }
+                    else System.out.println("Invalid answer, please insert 0 (false) or 1 (true) : ");
+                }
+                System.out.println("This is the current Age: " + user.getAge());
+
+                System.out.print("Do you want to change it?: 1 (true) or 0 (false) : ");
+                answered = false;
+                while(!answered){
+                    int answer = scanner.nextInt();
+
+                    if (answer == 1) {
+                        System.out.print("Age : ");
+                        newUser.setAge(scanner.nextInt());
+                        answered = true;
+                    }
+                    else if(answer == 0){
+                        answered = true;
+                    }
+                    else System.out.println("Invalid answer, please insert 0 (false) or 1 (true) : ");
+                }
+                System.out.println("This is the current Company: " + user.getCompany().getName());
+
+                System.out.print("Do you want to change it?: 1 (true) or 0 (false) : ");
+                answered = false;
+                while(!answered){
+                    int answer = scanner.nextInt();
+
+                    if (answer == 1) {
+                        ArrayList<Company> companies = CompanyService.getCompanies();
+                        CompanyService.showCompanies(companies);
+
+                        System.out.print("\nFind the company amongst the elements of this list, and insert its index : ");
+                        boolean indexCompany = false;
+
+                        while(!indexCompany) {
+                            int company_id = scanner.nextInt() - 1;
+                            try {
+                                newUser.setCompany(companies.get(company_id));
+                                indexCompany = true;
+                            } catch (IndexOutOfBoundsException e) {
+                                System.out.println("Index out of bounds, please insert a correct number : ");
+                            }
+                        }
+                        answered = true;
+                    }
+                    else if(answer == 0){
+                        answered = true;
+                    }
+                    else System.out.println("Invalid answer, please insert 0 (false) or 1 (true) : ");
+                }
+                System.out.println("This is the current Club: " + user.getClub().getName());
+
+                System.out.print("Do you want to change it?: 1 (true) or 0 (false) : ");
+                answered = false;
+                while(!answered){
+                    int answer = scanner.nextInt();
+
+                    if (answer == 1) {
+                        ArrayList<Club> clubs = ClubService.getBookClubs();
+                        ClubService.showBookClubs(clubs);
+
+                        System.out.print("\nFind the club amongst the elements of this list, and insert its index : ");
+                        boolean clubIndex = false;
+
+                        while(!clubIndex){
+                            int club_id = scanner.nextInt() - 1;
+                            try{
+                                newUser.setClub(clubs.get(club_id));
+                                clubIndex = true;
+                            }
+                            catch(IndexOutOfBoundsException e){
+                                System.out.println("Index out of bounds, please insert a correct number : ");
+                            }
+                        }
+                        answered = true;
+                    }
+                    else if(answer == 0){
+                        answered = true;
+                    }
+                    else System.out.println("Invalid answer, please insert 0 (false) or 1 (true) : ");
+                }
+                indexFound = true;
+            }
+            catch(IndexOutOfBoundsException e){
+                System.out.println("Index out of bounds, please insert a correct number : ");
+            }
+        }
+        dbUpdate(user, newUser);
+        System.out.println("Done");
+        showUserDetailed(newUser);
+    }
+    public static void deleteUser(){
+        Scanner scanner = new Scanner(System.in);
+
+        showAllUsers();
+        ArrayList<User> users = getUsers();
+        System.out.print("\nPick the numbers of the users you want to delete: ");
+
+        String collection = scanner.nextLine();
+
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(collection);
+
+        while(matcher.find()){
+            int index = Integer.parseInt(matcher.group());
+
+            try {
+                dbDelete(users.get(index - 1));
+                System.out.println("Done");
+            }
+            catch(IndexOutOfBoundsException exception){
+                System.out.printf("\nThis index, %d, is out of bounds\n", index);
+            }
+        }
     }
     public static void addCurrentlyReading(User user){
         System.out.printf("Adding a book to your Currently Reading shelf, %s...\n", user.getFirstname());
@@ -255,10 +400,90 @@ public class UserService{
             e.printStackTrace();
         }
     }
-    private static void dbUpdate(User user){
-
-    }
     private static void dbDelete(User user){
+        // delete user based on the object information
+        Connection connection = DatabaseConfiguration.getDatabaseConnection();
 
+        try {
+            String deleteSql = "DELETE FROM users WHERE firstname = ? and surname = ? and age = ? and company_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteSql);
+            preparedStatement.setString(1, user.getFirstname());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setInt(3, user.getAge());
+            preparedStatement.setInt(4, CompanyService.getCompanyId(user.getCompany()));
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private static void dbUpdate(User oldUser, User newUser){
+        int oldUserId = 0;
+        Connection connection = DatabaseConfiguration.getDatabaseConnection();
+        try {
+            String deleteSql = "SELECT id FROM users WHERE firstname = ? and surname = ? and age = ? and company_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteSql);
+            preparedStatement.setString(1, oldUser.getFirstname());
+            preparedStatement.setString(2, oldUser.getSurname());
+            preparedStatement.setInt(3, oldUser.getAge());
+            preparedStatement.setInt(4, CompanyService.getCompanyId(oldUser.getCompany()));
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+            oldUserId = resultSet.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (oldUserId == 0){
+            System.out.println("User not found");
+            return;
+        }
+        try {
+            String deleteSql = "UPDATE users SET firstname = ?, surname = ?, age = ?, company_id = ?, " +
+                    "club_id = ? WHERE id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteSql);
+            preparedStatement.setString(1, newUser.getFirstname());
+            preparedStatement.setString(2, newUser.getSurname());
+            preparedStatement.setInt(3, newUser.getAge());
+            preparedStatement.setInt(4, CompanyService.getCompanyId(newUser.getCompany()));
+            preparedStatement.setInt(5, ClubService.getClubId(newUser.getClub()));
+            preparedStatement.setInt(6, oldUserId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static int getUserId(User user){
+        int index = 0;
+        Connection connection = DatabaseConfiguration.getDatabaseConnection();
+
+        try {
+            String selectSql = "SELECT id FROM users WHERE firstname = ? and surname = ? and age = ?;";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(selectSql);
+            preparedStatement.setString(1, user.getFirstname());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setInt(3, user.getAge());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                index = resultSet.getInt(1);
+            } else {
+                System.out.println(index);
+                System.out.println(user.getFirstname());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return index;
     }
 }

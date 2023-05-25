@@ -2,6 +2,7 @@ package service;
 
 import model.User;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -18,35 +19,34 @@ public class Menu {
             System.out.println("2. Register a new user");
             System.out.println("3. Delete a user");
             System.out.println("4. Show a user's details");
+            System.out.println("5. Update a chosen user's data");
             System.out.println("0. Exit");
 
             int choice = scanner.nextInt();
 
             switch (choice) {
-                case 1:
+                case 1 -> {
                     // Show all users
                     System.out.println("Showing all users...");
                     UserService.showAllUsers();
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     // Register a new user
                     System.out.println("Registering a new user...");
                     UserService.registerUser();
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     // Delete a user
                     System.out.println("Deleting a user...");
-//                    UserService.deleteUser();
-                    break;
-                case 4:
+                    UserService.deleteUser();
+                }
+                case 4 -> {
                     // Show a user's details
                     System.out.println("Showing the chosen user's details...");
-
                     UserService.showAllUsers();
                     System.out.print("Pick the number of the user you want to find more about: ");
                     boolean answered = false;
-
-                    while(!answered) {
+                    while (!answered) {
                         int indexFound = scanner.nextInt() - 1;
                         try {
                             UserService.showUserDetailed(UserService.getUsers().get(indexFound));
@@ -55,27 +55,50 @@ public class Menu {
                             System.out.println("Index out of bounds, please insert a correct number : ");
                         }
                     }
-                    break;
-                case 0:
+                }
+                case 5 -> {
+                    // Update a user
+                    System.out.println("Updating a user...");
+                    UserService.updateUser();
+                }
+                case 0 -> {
                     // Exit the program
                     System.out.println("Bye");
                     showMagarus();
                     exit = true;
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please select a valid option.");
-                    break;
+                }
+                default -> System.out.println("Invalid choice. Please select a valid option.");
             }
         }
     }
-    public static void shelfManipulation(User user) {
+    public static void generalMenu() {
         Scanner scanner = new Scanner(System.in);
-        boolean exit = false;
 
+        User user = new User();
+        ArrayList<User> users = UserService.getUsers();
+        UserService.showAllUsers();
+
+        System.out.print("\nPick the user you wish to log in as amongst the elements of this list, and insert its index : ");
+        boolean indexFound = false;
+
+        while(!indexFound){
+            int user_id = scanner.nextInt() - 1;
+            try{
+                user = users.get(user_id);
+                indexFound = true;
+            }
+            catch(IndexOutOfBoundsException e){
+                System.out.println("Index out of bounds, please insert a correct number : ");
+            }
+        }
+        boolean exit = false;
         while (!exit) {
             System.out.println("\nWelcome to the User's shelf Management System!");
+
+            System.out.printf("Hello, %s %s\n", user.getFirstname(), user.getSurname());
             showBook();
             System.out.println("Select an option:");
+            System.out.println("0. Enter User-Manipulation Menu\n");
             System.out.println("1. Add book to currently reading list");
             System.out.println("2. Delete book from currently reading list");
             System.out.println("3. Show currently reading list");
@@ -84,45 +107,29 @@ public class Menu {
             System.out.println("6. Show favorites list");
             System.out.println("7. Add book to wishlist");
             System.out.println("8. Delete book from wishlist");
-            System.out.println("9. Show wishlist");
-            System.out.println("0. Exit");
+            System.out.println("9. Show wishlist\n");
+            System.out.println("10. Log-out and log back in as other user");
+            System.out.println("-1. Exit");
 
             int choice = scanner.nextInt();
             switch (choice) {
-                case 1:
-                    UserService.addCurrentlyReading(user);
-                    break;
-                case 2:
-                    UserService.deleteCurrentlyReading(user);
-                    break;
-                case 3:
-                    UserService.showCurrentlyReading(user);
-                    break;
-                case 4:
-                    UserService.addFavourites(user);
-                    break;
-                case 5:
-                    UserService.deleteFavourites(user);
-                    break;
-                case 6:
-                    UserService.showFavourites(user);
-                    break;
-                case 7:
-                    UserService.addWishlist(user);
-                    break;
-                case 8:
-                    UserService.deleteWishlist(user);
-                    break;
-                case 9:
-                    UserService.showWishlist(user);
-                    break;
-                case 0:
+                case 0 -> userManipulation();
+                case 1 -> UserService.addCurrentlyReading(user);
+                case 2 -> UserService.deleteCurrentlyReading(user);
+                case 3 -> UserService.showCurrentlyReading(user);
+                case 4 -> UserService.addFavourites(user);
+                case 5 -> UserService.deleteFavourites(user);
+                case 6 -> UserService.showFavourites(user);
+                case 7 -> UserService.addWishlist(user);
+                case 8 -> UserService.deleteWishlist(user);
+                case 9 -> UserService.showWishlist(user);
+                case -1 -> {
                     exit = true;
                     System.out.println("Bye");
                     showMagarus();
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+                }
+                case 10 -> generalMenu();
+                default -> System.out.println("Invalid choice. Please try again.");
             }
         }
     }

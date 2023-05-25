@@ -17,12 +17,8 @@ public class User{
         this.company = company;
         this.club = club;
     }
-
     public Shelf getShelf(){
-        if(shelf == null){
-            shelf = Shelf.buildShelf();
-        }
-        return shelf;
+        return Shelf.buildShelf(this);
     }
     public User() {
         firstname = "Unknown";

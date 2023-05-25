@@ -9,12 +9,6 @@ public class Main {
         System.out.println("Hello world!");
         Seed.getSeed();
 
-        Menu.userManipulation();
-//        Menu.shelfManipulation(UserService.getUsers().get(8));
-
-//        User user = new User();
-//        System.out.println(user.getShelf());
-//        System.out.println(user.getShelf());
-
+        Menu.generalMenu();
     }
 }

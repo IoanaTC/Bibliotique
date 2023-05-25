@@ -165,7 +165,6 @@ public class DatabaseSeed {
 
             resultSet.next();
             count = resultSet.getInt(1);
-            System.out.println(count);
 
         } catch (SQLException e) {
             e.printStackTrace();

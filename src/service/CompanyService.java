@@ -4,10 +4,7 @@ import config.DatabaseConfiguration;
 import model.Company;
 import model.User;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -57,11 +54,13 @@ public class CompanyService {
         Connection connection = DatabaseConfiguration.getDatabaseConnection();
 
         try {
-            String selectSql = "SELECT id FROM companies WHERE name = '" + company.getName() +
-                    "' and domain = '" + company.getDomain() + "';";
+            String selectSql = "SELECT id FROM companies WHERE name = ? and domain = ?;";
 
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(selectSql);
+            PreparedStatement preparedStatement = connection.prepareStatement(selectSql);
+            preparedStatement.setString(1, company.getName());
+            preparedStatement.setString(2, company.getDomain());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             resultSet.next();
             index = resultSet.getInt(1);
@@ -76,10 +75,11 @@ public class CompanyService {
         Connection connection = DatabaseConfiguration.getDatabaseConnection();
 
         try {
-            String selectSql = "SELECT name, domain FROM companies WHERE" + " id = " + company_id + ";";
+            String selectSql = "SELECT name, domain FROM companies WHERE id = ?;";
 
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(selectSql);
+            PreparedStatement preparedStatement = connection.prepareStatement(selectSql);
+            preparedStatement.setInt(1, company_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             resultSet.next();
             company.setName(resultSet.getString(1));

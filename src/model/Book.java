@@ -62,7 +62,7 @@ public abstract class Book {
         this.published = published;
     }
 
-    public boolean isAvailable() {
+    public boolean getAvailable() {
         return available;
     }
 

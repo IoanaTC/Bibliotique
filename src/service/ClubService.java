@@ -5,10 +5,7 @@ import model.Club;
 import model.Company;
 import model.User;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -74,11 +71,14 @@ public class ClubService {
         Connection connection = DatabaseConfiguration.getDatabaseConnection();
 
         try {
-            String selectSql = "SELECT id FROM companies WHERE name = '" + club.getName() + "' and motto = '" + club.getMotto() +
-                    "' and photo = '" + club.getPhoto() + "';";
+            String selectSql = "SELECT id FROM clubs WHERE name = ? and motto = ? and photo = ?;";
 
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(selectSql);
+            PreparedStatement preparedStatement = connection.prepareStatement(selectSql);
+            preparedStatement.setString(1, club.getName());
+            preparedStatement.setString(2, club.getMotto());
+            preparedStatement.setString(3, club.getPhoto());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             resultSet.next();
             index = resultSet.getInt(1);
@@ -93,16 +93,17 @@ public class ClubService {
         Connection connection = DatabaseConfiguration.getDatabaseConnection();
 
         try {
-            String selectSql = "SELECT name, motto, photo FROM clubs WHERE" + " id = " + club_id + ";";
+            String selectSql = "SELECT name,motto,photo FROM clubs WHERE id = ?;";
 
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(selectSql);
+            PreparedStatement preparedStatement = connection.prepareStatement(selectSql);
+            preparedStatement.setInt(1, club_id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             resultSet.next();
             club.setName(resultSet.getString(1));
             club.setMotto(resultSet.getString(2));
             club.setPhoto(resultSet.getString(3));
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
