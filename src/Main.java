@@ -1,16 +1,18 @@
-import model.*;
-import service.BookService;
+import config.DatabaseConfiguration;
+import config.DatabaseSeed;
 import service.Seed;
-import service.Service;
-import service.UserService;
+import service.Menu;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, IOException {
         System.out.println("Hello world!");
         Seed.getSeed();
 
-        //Service.userManipulation();
-        Service.shelfManipulation(UserService.getUsers().get(8));
-        // afisare book frumos
-        // verificare index corect
+        Menu.generalMenu();
+        DatabaseSeed.getFile().close();
+        DatabaseConfiguration.closeDatabaseConnection();
     }
 }
