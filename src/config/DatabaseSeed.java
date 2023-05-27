@@ -607,28 +607,27 @@ public class DatabaseSeed {
             return;
 
         List<String> firstNames = Arrays.asList(
-                "Căpușa",
+                "Nae",
+                "Zaharia",
                 "Zoe",
-                "Veta",
-                "Doamna Cătălina",
-                "Soțul",
-                "Căpitanul Bălcescu",
-                "Cătălina",
-                "Cațavencu",
-                "Doamna Cătălina",
-                "Nea Puiu"
+                "Ghita",
+                "Cetateanul",
+                "Agamemnon",
+                "Tache",
+                "Iordache",
+                "Stefan"
         );
+
         List<String> lastNames = Arrays.asList(
+                "Catavencu",
+                "Trahanache",
+                "Trahanache",
+                "Pristanda",
+                "turmentat",
                 "Dandanache",
-                "Chiriac",
                 "Farfuridi",
-                "Brânzovenescu",
-                "Profesorul",
-                "Farfuridi",
-                "Zoe",
-                "Farfuridi",
-                "Zoe",
-                "Dandanache"
+                "Branzovenescu",
+                "Tipatescu"
         );
         List<Integer> ages = Arrays.asList(
                 50,
@@ -639,24 +638,10 @@ public class DatabaseSeed {
                 55,
                 30,
                 42,
-                38,
-                60
+                38
         );
-        List<String> characters = Arrays.asList(
-                "Căpușa, Dandanache, Cațavencu",
-                "Zoe, Chiriac, Brânzovenescu",
-                "Veta, Farfuridi, Cetățeanul turmentat",
-                "Doamna Cătălina, Veta",
-                "Soțul, Profesorul, Veta",
-                "Zoe, Profesorul, Ștefan",
-                "Căpitanul Bălcescu, Farfuridi, Căpușa",
-                "Cătălina, Zoe",
-                "Cațavencu, Farfuridi, Ștefan",
-                "Doamna Cătălina, Zoe, Cetățeanul turmentat"
-        );
-
-        List<Integer> companies = Arrays.asList(1, 3, 2, 5, 4, 1, 3, 2, 5, 4);
-        List<Integer> clubs = Arrays.asList(3, 1, 4, 2, 5, 2, 4, 3, 1, 5);
+        List<Integer> companies = Arrays.asList(1, 3, 2, 5, 4, 1, 3, 2, 5);
+        List<Integer> clubs = Arrays.asList(3, 1, 4, 2, 5, 2, 4, 3, 1);
 
         String statementSql = "INSERT INTO users (firstname, surname, age, company_id, club_id)" +
                 " VALUES (?, ?, ?, ?, ?);";
