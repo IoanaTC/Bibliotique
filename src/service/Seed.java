@@ -1,4 +1,5 @@
 package service;
+import java.io.IOException;
 import java.sql.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -8,10 +9,10 @@ import config.DatabaseConfiguration;
 
 public final class Seed {
     private static Seed seed;
-    private Seed() throws SQLException {
+    private Seed() throws SQLException, IOException {
         createDatabase();
     }
-    private void createDatabase() throws SQLException {
+    private void createDatabase() throws SQLException, IOException {
         DatabaseSeed database = DatabaseSeed.getDatabaseSchema();
         Connection connection = DatabaseConfiguration.getDatabaseConnection();
 
@@ -46,9 +47,8 @@ public final class Seed {
         DatabaseMetaData metaData = connection.getMetaData();
         return !metaData.getTables(null, null, tableName, null).next();
     }
-    public static Seed getSeed() throws SQLException {
+    public static void getSeed() throws SQLException, IOException {
         if(seed == null)
             seed = new Seed();
-        return seed;
     }
 }

@@ -1,11 +1,14 @@
 package service;
 
 import config.DatabaseConfiguration;
+import config.DatabaseSeed;
 import model.*;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
@@ -401,8 +404,14 @@ public class ShelfService {
             preparedStatement.setInt(2, book_id);
 
             preparedStatement.executeUpdate();
+
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            DatabaseSeed.csvWrite(new String[]{"create", time.toString()});
+
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
     private static void dbDelete(User user, int book_id, String tableName, String columnName){
@@ -415,8 +424,13 @@ public class ShelfService {
             preparedStatement.setInt(2, UserService.getUserId(user));
 
             preparedStatement.executeUpdate();
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            DatabaseSeed.csvWrite(new String[]{"delete", time.toString()});
+
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -1,10 +1,12 @@
 package service;
 
 import config.DatabaseConfiguration;
+import config.DatabaseSeed;
 import model.Club;
 import model.Company;
 import model.User;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -396,7 +398,10 @@ public class UserService{
             preparedStatement.setInt(5, club_id);
 
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            DatabaseSeed.csvWrite(new String[]{"create", time.toString()});
+
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -414,7 +419,10 @@ public class UserService{
             preparedStatement.setInt(4, CompanyService.getCompanyId(user.getCompany()));
 
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            DatabaseSeed.csvWrite(new String[]{"delete", time.toString()});
+
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -455,9 +463,13 @@ public class UserService{
             preparedStatement.setInt(6, oldUserId);
 
             preparedStatement.executeUpdate();
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            DatabaseSeed.csvWrite(new String[]{"update", time.toString()});
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
     public static int getUserId(User user){

@@ -1,10 +1,15 @@
 package config;
 
+import com.opencsv.CSVWriter;
 import model.enums.EducationDomain;
 import model.enums.FictionDomain;
 import model.enums.GraphicNovelDomain;
-import service.ClubService;
-import service.CompanyService;
+
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 import java.sql.*;
 import java.util.Arrays;
@@ -16,11 +21,12 @@ import java.util.List;
 public class DatabaseSeed {
     // making this class a singleton, as we only need one database for this project
     private static DatabaseSeed INSTANCE;
+    private static CSVWriter writer;
     // the database structure is represented by a dictionary where the keys are table names
     // and the values are the query string used to create it
     private final LinkedHashMap<String, String> structure;
 
-    public static DatabaseSeed getDatabaseSchema() {
+    public static DatabaseSeed getDatabaseSchema() throws IOException {
         if(INSTANCE == null)
             INSTANCE = new DatabaseSeed();
         return INSTANCE;
@@ -31,7 +37,7 @@ public class DatabaseSeed {
     }
 
     // creating the structure
-    private DatabaseSeed(){
+    private DatabaseSeed() throws IOException {
         structure = new LinkedHashMap<>();
 
         // the currently accepted types of books
@@ -48,6 +54,24 @@ public class DatabaseSeed {
         structure.put("favourites", getFavouritesTable());
         structure.put("wishlist", getWishlistTable());
         structure.put("reading", getReadingTable());
+
+        try{
+            File file = new File("result.csv");
+            FileWriter fileWriter = new FileWriter(file);
+
+            writer = new CSVWriter(fileWriter);
+            String[] header = {"Action", "Timestamp"};
+            writer.writeNext(header);
+            writer.flush();
+
+        }catch(IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+    public static CSVWriter getFile() { return writer; }
+    public static void csvWrite(String[] info) throws IOException {
+        writer.writeNext(info);
+        writer.flush();
     }
     private String getFictionTable() {
         return "CREATE TABLE fiction ("
