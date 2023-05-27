@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConfiguration {
-    private static final String DB_URL = "jdbc:mariadb://localhost:3306/bibliotique";
-    private static final String USER = "ioana";
-    private static final String PASSWORD = "ionlucacaragiale";
+    private static final String DB_URL = "+";
+    private static final String USER = "+";
+    private static final String PASSWORD = "+";
 
     private static Connection databaseConnection;
 
